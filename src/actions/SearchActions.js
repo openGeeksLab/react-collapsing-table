@@ -49,11 +49,8 @@ export const checkForSearchTerm = ({ key, value, upperCaseSearchString }) => {
   try {
     let indexes;
     if (value === undefined) return { anyIndexes: false, newRowValue: '' };
-    let rowValue = value;
-    const currentCell = rowValue.toUpperCase();
-    indexes = indexesOf(upperCaseSearchString).in(currentCell);
-    const { anyIndexes, newRowValue } = tryToInsertSpan({ indexes, rowValue: value, searchString: upperCaseSearchString });
-    return { anyIndexes, newRowValue }
+    indexes = indexesOf(upperCaseSearchString).in(value.toUpperCase());
+    return { anyIndexes: indexes > 0, newRowValue: value }
   } catch(error) {
     return { anyIndexes: false, newRowValue: '' }
   }
