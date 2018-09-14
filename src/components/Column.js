@@ -4,15 +4,15 @@ import { ColumnPropType } from '../utils/propTypes';
 //Components
 import { sortDirection } from '../assets/icons/Icon';
 
-const Column = ({ accessor, label, sortable, onClick, sort, icons }) => {
+const Column = ({ accessor, label, sortable, onClick, sort, icons, sortFunction, sortFunctions }) => {
     const direction = sort.column === accessor ? sort.direction : 'none';
     const icon = sortable ? sortDirection({ direction, icons }) : "";
-    const sortFunction = sortable ? () => onClick({ column: accessor }) : () => {};
+    const sortFunc = sortable ? () => onClick({ column: accessor, sortFunction, sortFunctions }) : () => {};
     const cssClass = `column-${accessor} ${ sortable ? 'clickable' : '' }`;
 
     return (
             <th key={ accessor }
-                onClick={ sortFunction }
+                onClick={ sortFunc }
                 className={ cssClass }>{ label }{ icon }</th>
     );
 };

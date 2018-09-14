@@ -16,10 +16,10 @@ export const calculateRows = ({ state }) => {
 };
 
 //Sorting Rows
-export const sortColumn = ({ column, state }) => {
+export const sortColumn = ({ column, state, sortFunction, sortFunctions }) => {
     const { sortedColumn, sortedDirection } = changeSortFieldAndDirection({ newColumn: column, state });
     state = { ...state, sort: { ...state.sort, column: sortedColumn, direction: sortedDirection } };
-    const { sortedRows } = changeRowOrder({ column: sortedColumn, state });
+    const { sortedRows } = changeRowOrder({ column: sortedColumn, state, sortFunction, sortFunctions });
     return { ...state, rows: sortedRows };
 };
 
@@ -49,27 +49,32 @@ export const changeSortFieldAndDirection = ({ newColumn, state }) => {
     return { sortedColumn: newColumn, sortedDirection: newDirection };
 };
 
-export const changeRowOrder = ({ column, state }) => {
+export const changeRowOrder = ({ column, state, sortFunction, sortFunctions = {} }) => {
     const { sort: { direction }, columns } = state;
     let rows = state.rows;
     const [columnBeingSorted, ...b] = columns.filter(c => c.accessor === column);
     const type = (columnBeingSorted && columnBeingSorted.sortable !== false) ? columnBeingSorted.sortType : null;
+    const sortFunc = sortFunctions.asc ? sortFunctions.asc :sortFunction;
 
     switch (direction) {
         case 'ascending':
-            rows.sort(dynamicSort({ column, type }));
+            rows.sort(dynamicSort({ column, type, sortFunction: sortFunc }));
             break;
         case 'descending':
-            rows.sort(dynamicSort({ column, type })).reverse();
+            if (sortFunctions.desc) {
+                rows.sort(dynamicSort({ column, type, sortFunction: sortFunctions.desc }));
+            } else {
+                rows.sort(dynamicSort({ column, type, sortFunction: sortFunc })).reverse();
+            }
             break;
         default:
-            rows.sort(dynamicSort({ column, type }));
+            rows.sort(dynamicSort({ column, type, sortFunction: sortFunc }));
     }
 
     return { sortedRows: rows };
 };
 
-export const dynamicSort = ({ column, type }) => {
+export const dynamicSort = ({ column, type, sortFunction }) => {
     switch (type) {
         case 'date':
             return (a, b) => {
@@ -80,7 +85,7 @@ export const dynamicSort = ({ column, type }) => {
                 return ((aDate < bDate) ? 1 : (aDate > bDate) ? -1 : 0)
             };
         default:
-            return (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
+            return sortFunction ? sortFunction : (a, b) => ((a[column] < b[column]) ? -1 : (a[column] > b[column]) ? 1 : 0);
     }
 };
 

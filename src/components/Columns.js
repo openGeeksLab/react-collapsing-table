@@ -5,14 +5,17 @@ import { ColumnsPropType } from '../utils/propTypes';
 import Column from './Column';
 
 const Columns = ({ columns, sortRows, sort, icons }) => {
-    const tableColumns = columns.map(({ accessor, label, sortable }) => {
+    const tableColumns = columns.map(({ accessor, label, sortable, sortFunction, sortFunctions }) => {
         return <Column key={ accessor }
                        accessor={ accessor }
                        icons={ icons }
                        label={ label }
                        sort={ sort }
                        sortable={ sortable }
-                       onClick={ sortRows } />;
+                       onClick={ sortRows }
+                       sortFunction={ sortFunction }
+                       sortFunctions={ sortFunctions }
+                       />;
     });
     return (
         <thead>

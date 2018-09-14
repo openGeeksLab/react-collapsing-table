@@ -106,9 +106,9 @@ export class Table extends Component {
         })
     };
 
-    sortRows({ column }) {
+    sortRows({ column, sortFunction, sortFunctions }) {
         this.setState(currentState => {
-            return sortColumn({ column, state: currentState })
+            return sortColumn({ column, state: currentState, sortFunction, sortFunctions })
         });
     }
 

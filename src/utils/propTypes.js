@@ -37,6 +37,8 @@ export const ColumnPropType = {
     sortable: bool.isRequired,
     onClick: func.isRequired,
     sort: Sort.isRequired,
+    sortFunction: func,
+    sortFunctions: object,
 };
 
 export const ColumnsPropType = {
