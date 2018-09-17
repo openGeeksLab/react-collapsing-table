@@ -21,7 +21,7 @@ const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex, callback
                      CustomFunction={ callbacks[accessor] } />
     });
 
-    const className = `expanded-row ${rowIndex % 2 === 0 ? 'even' : 'odd'}`;
+    const className = `expanded-row ${rowIndex % 2 === 0 ? 'odd' : 'even'}`;
 
     return (
             <tr className={className} key='normalRow'>
