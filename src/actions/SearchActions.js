@@ -15,12 +15,13 @@ export const indexesOf = (substr) => ({
 });
 
 export const insert = (str, index, value) => {
-    return str.substr(0, index) + value + str.substr(index);
+  return str.substr(0, index) + value + str.substr(index);
 };
 
-export const searchRows = ({ searchString, state, initialRows=[] }) => {
-    let rows = initialRows;
-  if(searchString !== '' ) {
+export const searchRows = ({ searchString, state, initialRows = [] }) => {
+  let rows = initialRows;
+
+  if (searchString !== '' ) {
       const {columns} = state;
       const upperCaseSearchString = searchString.toUpperCase();
 
@@ -36,8 +37,9 @@ export const searchRows = ({ searchString, state, initialRows=[] }) => {
 
 export const searchRow = ({ row, upperCaseSearchString, columns }) => {
   let flag = false;
-  columns.map(({ accessor }) => {
-    const { anyIndexes, newRowValue } = checkForSearchTerm({ key: accessor, value: row[accessor], upperCaseSearchString });
+  columns.map(({ accessor, searchExtractor }) => {
+    const value = searchExtractor ? searchExtractor(row) : row[accessor];
+    const { anyIndexes, newRowValue } = checkForSearchTerm({ value, upperCaseSearchString });
     if(anyIndexes) flag = true;
     row[accessor] = newRowValue;
   });
@@ -45,11 +47,11 @@ export const searchRow = ({ row, upperCaseSearchString, columns }) => {
 };
 
 //TODO: handle more than strings
-export const checkForSearchTerm = ({ key, value, upperCaseSearchString }) => {
+export const checkForSearchTerm = ({ value, upperCaseSearchString }) => {
   try {
     let indexes;
     if (value === undefined) return { anyIndexes: false, newRowValue: '' };
-    indexes = indexesOf(upperCaseSearchString).in(value.toUpperCase());
+    indexes = indexesOf(upperCaseSearchString).in(value.toString().toUpperCase());
     return { anyIndexes: indexes > 0, newRowValue: value }
   } catch(error) {
     return { anyIndexes: false, newRowValue: '' }

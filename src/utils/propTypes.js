@@ -39,6 +39,7 @@ export const ColumnPropType = {
     sort: Sort.isRequired,
     sortFunction: func,
     sortFunctions: object,
+    searchExtractor: func,
 };
 
 export const ColumnsPropType = {
