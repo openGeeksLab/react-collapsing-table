@@ -3,12 +3,8 @@ import React from 'react';
 import { SearchPropType } from '../utils/propTypes'
 //Components
 
-const Search = ({ searchString, searchRows, clearSearch, searchIcon, clearIcon }) => {
-    let buttonContent = searchIcon || "search";
-
-    if (searchString.length) {
-        buttonContent = clearIcon || "&#9587;";
-    }
+const Search = ({ searchString, searchRows, clearSearch, searchIcon = "search", clearIcon = "&#9587;" }) => {
+    const buttonContent = searchString.length ? clearIcon : searchIcon;
 
     return (
         <div className="react-collapsible-search">
