@@ -39,9 +39,8 @@ export const searchRow = ({ row, upperCaseSearchString, columns }) => {
   let flag = false;
   columns.map(({ accessor, searchExtractor }) => {
     const value = searchExtractor ? searchExtractor(row) : row[accessor];
-    const { anyIndexes, newRowValue } = checkForSearchTerm({ value, upperCaseSearchString });
+    const { anyIndexes } = checkForSearchTerm({ value, upperCaseSearchString });
     if(anyIndexes) flag = true;
-    row[accessor] = newRowValue;
   });
   return { updatedRow: row, flag }
 };
@@ -49,10 +48,10 @@ export const searchRow = ({ row, upperCaseSearchString, columns }) => {
 //TODO: handle more than strings
 export const checkForSearchTerm = ({ value, upperCaseSearchString }) => {
   try {
-    let indexes;
     if (value === undefined) return { anyIndexes: false, newRowValue: '' };
-    indexes = indexesOf(upperCaseSearchString).in(value.toString().toUpperCase());
-    return { anyIndexes: indexes > 0, newRowValue: value }
+    const anyIndexes = value.toString().toUpperCase().includes(upperCaseSearchString);
+
+    return { anyIndexes, newRowValue: value ? value : '' }
   } catch(error) {
     return { anyIndexes: false, newRowValue: '' }
   }
