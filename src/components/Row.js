@@ -22,7 +22,7 @@ const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex, callback
     });
 
     return (
-            <tr key='normalRow'>
+            <tr className={`expanded-row &{rowIndex % 2 === 0 ? even : odd}`} key='normalRow'>
                 { cells }
             </tr>
     );
