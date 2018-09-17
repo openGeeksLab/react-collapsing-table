@@ -1,4 +1,4 @@
-import { shape, arrayOf, array, bool, object, number, string, func } from 'prop-types';
+import { shape, arrayOf, array, bool, object, number, string, func, element } from 'prop-types';
 
 //Building Blocks
 export const Column = shape({
@@ -82,6 +82,8 @@ export const SearchPropType = {
     searchString: string.isRequired,
     searchRows: func.isRequired,
     clearSearch: func.isRequired,
+    searchIcon: element,
+    clearIcon: element,
 };
 
 export const TablePropType = {
@@ -94,4 +96,6 @@ export const TablePropType = {
     direction: string,
     callbacks: object,
     paginationEventListener: func,
+    searchIcon: element,
+    clearIcon: element,
 };

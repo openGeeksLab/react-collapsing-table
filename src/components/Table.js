@@ -162,6 +162,8 @@ export class Table extends Component {
             icons,
             id,
             theme,
+            searchIcon,
+            clearIcon,
         } = this.state;
         const displayedRows = calculateRows({ state: this.state });
         const visibleColumns = Object.assign([], columns.filter(column => column.isVisible));
@@ -183,7 +185,9 @@ export class Table extends Component {
 
         const SearchComponent = showSearch && <Search searchString={ this.state.searchString }
                                                       searchRows={ this.searchRows }
-                                                      clearSearch={ this.clearSearch } />;
+                                                      clearSearch={ this.clearSearch }
+                                                      searchIcon={searchIcon}
+                                                      clearIcon={clearIcon} />;
 
         return (
             <div className={theme}>
