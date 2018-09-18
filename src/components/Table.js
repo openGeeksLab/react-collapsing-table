@@ -157,9 +157,9 @@ export class Table extends Component {
     }
 
     clearSearch() {
-        this.setState((currentState, currentProps) => {
-            return clearSearch({ state: currentState, initialRows: cloneDeep(currentProps.rows) })
-        });
+        this.searchRows({ target: { value: '' } });
+        this.goToPage({ newPage: 1 });
+        this.props.onClearSearch ? this.props.onClearSearch() : null;
     }
 
     render(){

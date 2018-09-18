@@ -99,4 +99,5 @@ export const TablePropType = {
     paginationEventListener: func,
     searchIcon: element,
     clearIcon: element,
+    onClearSearch: func,
 };
