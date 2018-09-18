@@ -6,7 +6,7 @@ import Search from './Search';
 import Columns from './Columns';
 import Rows from './Rows';
 import Pagination from './Pagination';
-import { calculateRows, sortColumn, nextPage, previousPage, goToPage, expandRow, setInputtedPage } from '../actions/TableActions'
+import { calculateRows, sortColumn, nextPage, previousPage, goToPage, expandRow, changeRowOrder } from '../actions/TableActions'
 import { resizeTable } from '../actions/ResizeTableActions'
 import { searchRows, clearSearch } from '../actions/SearchActions';
 import throttle from 'lodash.throttle';
@@ -72,6 +72,7 @@ export class Table extends Component {
         this.expandRow = this.expandRow.bind(this);
         this.searchRows = this.searchRows.bind(this);
         this.clearSearch = this.clearSearch.bind(this);
+        this.sort = this.sort.bind(this);
     }
 
     componentWillMount(){
@@ -105,6 +106,16 @@ export class Table extends Component {
             return resizeTable({ width: window.innerWidth, state: currentState })
         })
     };
+
+    sort() {
+        const column = this.state.sort.column;
+        const { sortFunction, sortFunctions } = this.props.columns.find((col) => col.accessor === column);
+
+        this.setState(currentState => {
+            const { sortedRows } = changeRowOrder({ column, state: currentState, sortFunction, sortFunctions });
+            return { ...currentState, rows: sortedRows }
+        });
+    }
 
     sortRows({ column, sortFunction, sortFunctions }) {
         this.setState(currentState => {
