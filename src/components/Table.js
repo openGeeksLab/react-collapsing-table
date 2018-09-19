@@ -154,12 +154,12 @@ export class Table extends Component {
         this.setState((currentState, currentProps) => {
             return searchRows({ searchString: value, state: currentState, initialRows: cloneDeep(currentProps.rows) })
         });
+        this.goToPage({ newPage: 1 });
+        this.props.onClearSearch ? this.props.onClearSearch() : null;
     }
 
     clearSearch() {
         this.searchRows({ target: { value: '' } });
-        this.goToPage({ newPage: 1 });
-        this.props.onClearSearch ? this.props.onClearSearch() : null;
     }
 
     render(){
