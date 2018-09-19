@@ -69,6 +69,7 @@ export const RowPropType = {
     expandRow: func.isRequired,
     rowIndex: number.isRequired,
     callbacks: object.isRequired,
+    renderRow: func,
 };
 
 export const RowsPropType = {
@@ -77,6 +78,7 @@ export const RowsPropType = {
     hiddenColumns: Columns.isRequired,
     expandRow: func.isRequired,
     callbacks: object.isRequired,
+    renderRow: func,
 };
 
 export const SearchPropType = {
@@ -100,4 +102,5 @@ export const TablePropType = {
     searchIcon: element,
     clearIcon: element,
     onClearSearch: func,
+    renderRow: func,
 };

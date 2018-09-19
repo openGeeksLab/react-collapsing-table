@@ -3,9 +3,8 @@ import React from 'react';
 import { RowPropType } from '../utils/propTypes';
 //Components
 import Cell from './Cell';
-import ExpandedRow from './ExpandedRow';
 
-const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex, callbacks, icons }) => {
+const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex, callbacks, icons, renderRow }) => {
     const hiddenColumnsLength = hiddenColumns.length;
 
     const cells = visibleColumns.map(({ accessor, CustomComponent }, index) => {
@@ -22,6 +21,10 @@ const Row = ({ row, visibleColumns, hiddenColumns, expandRow, rowIndex, callback
     });
 
     const className = `normal-row ${rowIndex % 2 === 0 ? 'odd' : 'even'}`;
+
+    if (renderRow) {
+        return renderRow({ row, cells, className, rowIndex });
+    }
 
     return (
             <tr className={className} key='normalRow'>

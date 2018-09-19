@@ -208,6 +208,7 @@ export class Table extends Component {
                              sort={ this.state.sort } />
                     <Rows icons={ icons }
                           rows={ displayedRows }
+                          renderRow= { this.props.renderRow }
                           visibleColumns={ visibleColumns }
                           hiddenColumns={ hiddenColumns }
                           expandRow={ this.expandRow }
