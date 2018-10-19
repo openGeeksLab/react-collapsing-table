@@ -87,6 +87,8 @@ export const SearchPropType = {
     clearSearch: func.isRequired,
     searchIcon: element,
     clearIcon: element,
+    showPageSizes: bool,
+    onPageSizeChange: func,
 };
 
 export const TablePropType = {
@@ -103,4 +105,6 @@ export const TablePropType = {
     clearIcon: element,
     onClearSearch: func,
     renderRow: func,
+    showPageSizes: bool,
+    onPageSizeChange: func,
 };

@@ -83,15 +83,17 @@ export class Table extends Component {
         this.resizeTable();
     }
 
-    componentWillReceiveProps({ rows }){
+    componentWillReceiveProps({ rows, rowSize }){
         this.setState(currentState => {
             return {
                 ...currentState,
                 rows,
+                rowSize,
                 pagination: {
                     ...currentState.pagination,
+                    rowSize,
                     currentPage: 1,
-                    totalPages: (rows.length === 0) ? 1 : Math.ceil(rows.length / currentState.pagination.rowSize)
+                    totalPages: (rows.length === 0) ? 1 : Math.ceil(rows.length / rowSize)
                 }
             }
         })
@@ -196,7 +198,9 @@ export class Table extends Component {
                                                       searchRows={ this.searchRows }
                                                       clearSearch={ this.clearSearch }
                                                       searchIcon={this.props.searchIcon}
-                                                      clearIcon={this.props.clearIcon} />;
+                                                      clearIcon={this.props.clearIcon}
+                                                      showPageSizes={this.props.showPageSizes}
+                                                      onPageSizeChange={this.props.onPageSizeChange} />;
 
         return (
             <div className={theme}>
