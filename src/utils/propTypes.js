@@ -104,6 +104,7 @@ export const TablePropType = {
     searchIcon: element,
     clearIcon: element,
     onClearSearch: func,
+    onSearch: func,
     renderRow: func,
     showPageSizes: bool,
     onPageSizeChange: func,

@@ -8,7 +8,7 @@ import Rows from './Rows';
 import Pagination from './Pagination';
 import { calculateRows, sortColumn, nextPage, previousPage, goToPage, expandRow, changeRowOrder } from '../actions/TableActions'
 import { resizeTable } from '../actions/ResizeTableActions'
-import { searchRows, clearSearch } from '../actions/SearchActions';
+import { searchRows } from '../actions/SearchActions';
 import throttle from 'lodash.throttle';
 import cloneDeep from 'lodash.clonedeep';
 
@@ -153,6 +153,12 @@ export class Table extends Component {
     }
 
     searchRows({ target: { value }}) {
+        if (this.props.onSearch) {
+            this.setState({searchString: value});
+
+            this.props.onSearch(value);
+            return;
+        }
         this.setState((currentState, currentProps) => {
             return searchRows({ searchString: value, state: currentState, initialRows: cloneDeep(currentProps.rows) })
         });
