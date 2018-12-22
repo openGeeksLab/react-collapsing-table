@@ -110,6 +110,9 @@ export class Table extends Component {
     };
 
     sort() {
+        if (!this.props.sortable) {
+            return;
+        }
         const column = this.state.sort.column;
         const { sortFunction, sortFunctions } = this.props.columns.find((col) => col.accessor === column);
 
@@ -120,6 +123,9 @@ export class Table extends Component {
     }
 
     sortRows({ column, sortFunction, sortFunctions }) {
+        if (!this.props.sortable) {
+            return;
+        }
         this.setState(currentState => {
             return sortColumn({ column, state: currentState, sortFunction, sortFunctions })
         });
@@ -206,7 +212,8 @@ export class Table extends Component {
                                                       searchIcon={this.props.searchIcon}
                                                       clearIcon={this.props.clearIcon}
                                                       showPageSizes={this.props.showPageSizes}
-                                                      onPageSizeChange={this.props.onPageSizeChange} />;
+                                                      onPageSizeChange={this.props.onPageSizeChange}
+                                                      renderSort={this.props.renderSort} />;
 
         return (
             <div className={theme}>
@@ -215,6 +222,7 @@ export class Table extends Component {
                     <Columns icons={ icons }
                              columns={ visibleColumns }
                              sortRows={ this.sortRows }
+                             sortable={ this.props.sortable }
                              sort={ this.state.sort } />
                     <Rows icons={ icons }
                           rows={ displayedRows }

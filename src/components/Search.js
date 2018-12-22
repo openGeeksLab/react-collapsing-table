@@ -10,7 +10,8 @@ const Search = ({
   searchIcon = 'search',
   clearIcon = '&#9587;',
   showPageSizes = true,
-  onPageSizeChange = () => {}
+  onPageSizeChange = () => {},
+  renderSort = null,
 }) => {
   const buttonContent = searchString.length ? clearIcon : searchIcon;
 
@@ -26,6 +27,7 @@ const Search = ({
           <option value="">All</option>
         </select>
       )}
+      {renderSort ? renderSort() : null}
       <input onChange={searchRows} value={searchString} placeholder="search" />
       <button className="react-collapsible-clear" onClick={clearSearch}>
         {buttonContent}

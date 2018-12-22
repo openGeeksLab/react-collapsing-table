@@ -46,6 +46,7 @@ export const ColumnsPropType = {
     columns: Columns.isRequired,
     sortRows: func.isRequired,
     sort: Sort.isRequired,
+    sortable: bool,
 };
 
 export const ExpandedRowPropType = {
@@ -89,6 +90,7 @@ export const SearchPropType = {
     clearIcon: element,
     showPageSizes: bool,
     onPageSizeChange: func,
+    renderSort: func,
 };
 
 export const TablePropType = {
@@ -108,4 +110,6 @@ export const TablePropType = {
     renderRow: func,
     showPageSizes: bool,
     onPageSizeChange: func,
+    sortable: bool,
+    renderSort: func,
 };
