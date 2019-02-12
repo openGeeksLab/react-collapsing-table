@@ -12,13 +12,14 @@ const Search = ({
   showPageSizes = true,
   onPageSizeChange = () => {},
   renderSort = null,
+  rowSize = 10,
 }) => {
   const buttonContent = searchString.length ? clearIcon : searchIcon;
 
   return (
     <div className="react-collapsible-search">
       {showPageSizes && (
-        <select onChange={onPageSizeChange}>
+        <select onChange={onPageSizeChange} value={rowSize}>
           <option value="10">10</option>
           <option value="25">25</option>
           <option value="50">50</option>

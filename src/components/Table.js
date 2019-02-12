@@ -213,6 +213,7 @@ export class Table extends Component {
                                                       clearIcon={this.props.clearIcon}
                                                       showPageSizes={this.props.showPageSizes}
                                                       onPageSizeChange={this.props.onPageSizeChange}
+                                                      rowSize={this.state.pagination.rowSize}
                                                       renderSort={this.props.renderSort} />;
 
         return (

@@ -91,6 +91,7 @@ export const SearchPropType = {
     showPageSizes: bool,
     onPageSizeChange: func,
     renderSort: func,
+    rowSize: number,
 };
 
 export const TablePropType = {
